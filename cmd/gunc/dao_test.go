@@ -120,14 +120,14 @@ func testDAOForkBlockNewChain(t *testing.T, test int, genesis string, expectBloc
 		geth.WaitExit()
 	}
 	// Retrieve the DAO config flag from the database
-	path := filepath.Join(datadir, "geth", "chaindata")
+	path := filepath.Join(datadir, "gunc", "chaindata")
 	db, err := ethdb.NewLDBDatabase(path, 0, 0)
 	if err != nil {
 		t.Fatalf("test %d: failed to open test database: %v", test, err)
 	}
 	defer db.Close()
 
-	genesisHash := common.HexToHash("0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3")
+	genesisHash := common.HexToHash("0x6582123629c8d8610ef8ec6f63ed26c626e164ba3c9775c36a6546b1e6a1791b")
 	if genesis != "" {
 		genesisHash = daoGenesisHash
 	}
