@@ -24,13 +24,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	"github.com/ethereum/go-ethereum/p2p/protocols"
-	"github.com/ethereum/go-ethereum/rpc"
-	"github.com/ethereum/go-ethereum/swarm/log"
-	"github.com/ethereum/go-ethereum/swarm/state"
+	"github.com/ninjadotorg/uncommons/crypto"
+	"github.com/ninjadotorg/uncommons/p2p"
+	"github.com/ninjadotorg/uncommons/p2p/discover"
+	"github.com/ninjadotorg/uncommons/p2p/protocols"
+	"github.com/ninjadotorg/uncommons/rpc"
+	"github.com/ninjadotorg/uncommons/swarm/log"
+	"github.com/ninjadotorg/uncommons/swarm/state"
 )
 
 const (

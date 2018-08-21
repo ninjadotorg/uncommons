@@ -33,11 +33,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/sha3"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/swarm/api"
-	swarm "github.com/ethereum/go-ethereum/swarm/api/client"
+	"github.com/ninjadotorg/uncommons/crypto"
+	"github.com/ninjadotorg/uncommons/crypto/sha3"
+	"github.com/ninjadotorg/uncommons/log"
+	"github.com/ninjadotorg/uncommons/swarm/api"
+	swarm "github.com/ninjadotorg/uncommons/swarm/api/client"
 )
 
 // TestAccessPassword tests for the correct creation of an ACT manifest protected by a password.

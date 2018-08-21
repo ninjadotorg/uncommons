@@ -17,8 +17,8 @@
 package eth
 
 import (
-	"github.com/ethereum/go-ethereum/metrics"
-	"github.com/ethereum/go-ethereum/p2p"
+	"github.com/ninjadotorg/uncommons/metrics"
+	"github.com/ninjadotorg/uncommons/p2p"
 )
 
 var (

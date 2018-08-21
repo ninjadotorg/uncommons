@@ -21,11 +21,11 @@ import (
 
 	"encoding/json"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/internal/ethapi"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/ninjadotorg/uncommons/accounts"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/common/hexutil"
+	"github.com/ninjadotorg/uncommons/internal/ethapi"
+	"github.com/ninjadotorg/uncommons/log"
 )
 
 type AuditLogger struct {

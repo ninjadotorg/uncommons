@@ -24,13 +24,13 @@ import (
 	"net"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/mclock"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/sha3"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/p2p/netutil"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/common/mclock"
+	"github.com/ninjadotorg/uncommons/crypto"
+	"github.com/ninjadotorg/uncommons/crypto/sha3"
+	"github.com/ninjadotorg/uncommons/log"
+	"github.com/ninjadotorg/uncommons/p2p/netutil"
+	"github.com/ninjadotorg/uncommons/rlp"
 )
 
 var (

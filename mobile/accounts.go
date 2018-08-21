@@ -23,10 +23,10 @@ import (
 	"errors"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ninjadotorg/uncommons/accounts"
+	"github.com/ninjadotorg/uncommons/accounts/keystore"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/crypto"
 )
 
 const (

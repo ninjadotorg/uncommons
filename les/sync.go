@@ -20,9 +20,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/light"
+	"github.com/ninjadotorg/uncommons/core/rawdb"
+	"github.com/ninjadotorg/uncommons/eth/downloader"
+	"github.com/ninjadotorg/uncommons/light"
 )
 
 // syncer is responsible for periodically synchronising with the network, both

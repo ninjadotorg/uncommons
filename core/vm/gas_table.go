@@ -17,9 +17,9 @@
 package vm
 
 import (
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/common/math"
+	"github.com/ninjadotorg/uncommons/params"
 )
 
 // memoryGasCosts calculates the quadratic gas for memory expansion. It does so

@@ -25,13 +25,13 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/swarm/api"
-	swarmhttp "github.com/ethereum/go-ethereum/swarm/api/http"
-	"github.com/ethereum/go-ethereum/swarm/multihash"
-	"github.com/ethereum/go-ethereum/swarm/storage/mru"
-	"github.com/ethereum/go-ethereum/swarm/testutil"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/crypto"
+	"github.com/ninjadotorg/uncommons/swarm/api"
+	swarmhttp "github.com/ninjadotorg/uncommons/swarm/api/http"
+	"github.com/ninjadotorg/uncommons/swarm/multihash"
+	"github.com/ninjadotorg/uncommons/swarm/storage/mru"
+	"github.com/ninjadotorg/uncommons/swarm/testutil"
 )
 
 func serverFunc(api *api.API) testutil.TestServer {

@@ -27,11 +27,11 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/bitutil"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/sha3"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/common/bitutil"
+	"github.com/ninjadotorg/uncommons/crypto"
+	"github.com/ninjadotorg/uncommons/crypto/sha3"
+	"github.com/ninjadotorg/uncommons/log"
 )
 
 const (

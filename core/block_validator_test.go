@@ -21,11 +21,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/ninjadotorg/uncommons/consensus/ethash"
+	"github.com/ninjadotorg/uncommons/core/types"
+	"github.com/ninjadotorg/uncommons/core/vm"
+	"github.com/ninjadotorg/uncommons/ethdb"
+	"github.com/ninjadotorg/uncommons/params"
 )
 
 // Tests that simple header verification works, for both good and bad blocks.

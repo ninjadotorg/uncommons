@@ -35,15 +35,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/swarm/api"
-	swarm "github.com/ethereum/go-ethereum/swarm/api/client"
-	"github.com/ethereum/go-ethereum/swarm/multihash"
-	"github.com/ethereum/go-ethereum/swarm/storage"
-	"github.com/ethereum/go-ethereum/swarm/storage/mru"
-	"github.com/ethereum/go-ethereum/swarm/testutil"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/crypto"
+	"github.com/ninjadotorg/uncommons/log"
+	"github.com/ninjadotorg/uncommons/swarm/api"
+	swarm "github.com/ninjadotorg/uncommons/swarm/api/client"
+	"github.com/ninjadotorg/uncommons/swarm/multihash"
+	"github.com/ninjadotorg/uncommons/swarm/storage"
+	"github.com/ninjadotorg/uncommons/swarm/storage/mru"
+	"github.com/ninjadotorg/uncommons/swarm/testutil"
 )
 
 func init() {

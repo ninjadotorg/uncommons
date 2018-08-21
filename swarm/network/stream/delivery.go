@@ -21,14 +21,14 @@ import (
 	"errors"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/metrics"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	cp "github.com/ethereum/go-ethereum/swarm/chunk"
-	"github.com/ethereum/go-ethereum/swarm/log"
-	"github.com/ethereum/go-ethereum/swarm/network"
-	"github.com/ethereum/go-ethereum/swarm/spancontext"
-	"github.com/ethereum/go-ethereum/swarm/storage"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/metrics"
+	"github.com/ninjadotorg/uncommons/p2p/discover"
+	cp "github.com/ninjadotorg/uncommons/swarm/chunk"
+	"github.com/ninjadotorg/uncommons/swarm/log"
+	"github.com/ninjadotorg/uncommons/swarm/network"
+	"github.com/ninjadotorg/uncommons/swarm/spancontext"
+	"github.com/ninjadotorg/uncommons/swarm/storage"
 	opentracing "github.com/opentracing/opentracing-go"
 )
 

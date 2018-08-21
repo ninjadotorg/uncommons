@@ -21,11 +21,11 @@ import (
 	"encoding/hex"
 	"time"
 
-	"github.com/ethereum/go-ethereum/p2p/discover"
+	"github.com/ninjadotorg/uncommons/p2p/discover"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/swarm/network"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/log"
+	"github.com/ninjadotorg/uncommons/swarm/network"
 )
 
 // BucketKeyKademlia is the key to be used for storing the kademlia

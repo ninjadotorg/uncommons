@@ -20,8 +20,8 @@ import (
 	"encoding/binary"
 	"hash"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/swarm/storage"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/swarm/storage"
 )
 
 // ResourceMetadata encapsulates the immutable information about a mutable resource :)

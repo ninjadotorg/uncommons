@@ -30,10 +30,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/swarm/api"
-	"github.com/ethereum/go-ethereum/swarm/storage"
+	"github.com/ninjadotorg/uncommons/swarm/api"
+	"github.com/ninjadotorg/uncommons/swarm/storage"
 
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/ninjadotorg/uncommons/log"
 
 	colorable "github.com/mattn/go-colorable"
 )

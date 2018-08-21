@@ -25,9 +25,9 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/swarm/storage"
-	"github.com/ethereum/go-ethereum/swarm/storage/mock"
+	"github.com/ninjadotorg/uncommons/common"
+	"github.com/ninjadotorg/uncommons/swarm/storage"
+	"github.com/ninjadotorg/uncommons/swarm/storage/mock"
 )
 
 // MockStore creates NodeStore instances from provided GlobalStorer,

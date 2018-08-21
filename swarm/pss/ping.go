@@ -23,9 +23,9 @@ import (
 	"errors"
 	"time"
 
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/protocols"
-	"github.com/ethereum/go-ethereum/swarm/log"
+	"github.com/ninjadotorg/uncommons/p2p"
+	"github.com/ninjadotorg/uncommons/p2p/protocols"
+	"github.com/ninjadotorg/uncommons/swarm/log"
 )
 
 // Generic ping protocol implementation for

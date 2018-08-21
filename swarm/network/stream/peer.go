@@ -22,14 +22,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/metrics"
-	"github.com/ethereum/go-ethereum/p2p/protocols"
-	"github.com/ethereum/go-ethereum/swarm/log"
-	pq "github.com/ethereum/go-ethereum/swarm/network/priorityqueue"
-	"github.com/ethereum/go-ethereum/swarm/network/stream/intervals"
-	"github.com/ethereum/go-ethereum/swarm/spancontext"
-	"github.com/ethereum/go-ethereum/swarm/state"
-	"github.com/ethereum/go-ethereum/swarm/storage"
+	"github.com/ninjadotorg/uncommons/metrics"
+	"github.com/ninjadotorg/uncommons/p2p/protocols"
+	"github.com/ninjadotorg/uncommons/swarm/log"
+	pq "github.com/ninjadotorg/uncommons/swarm/network/priorityqueue"
+	"github.com/ninjadotorg/uncommons/swarm/network/stream/intervals"
+	"github.com/ninjadotorg/uncommons/swarm/spancontext"
+	"github.com/ninjadotorg/uncommons/swarm/state"
+	"github.com/ninjadotorg/uncommons/swarm/storage"
 	opentracing "github.com/opentracing/opentracing-go"
 )
 
