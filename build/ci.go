@@ -23,17 +23,17 @@ Usage: go run build/ci.go <command> <command flags/arguments>
 
 Available commands are:
 
-   install    [ -arch architecture ] [ -cc compiler ] [ packages... ]                          -- builds packages and executables
-   test       [ -coverage ] [ packages... ]                                                    -- runs the tests
-   lint                                                                                        -- runs certain pre-selected linters
-   archive    [ -arch architecture ] [ -type zip|tar ] [ -signer key-envvar ] [ -upload dest ] -- archives build artifacts
-   importkeys                                                                                  -- imports signing keys from env
-   debsrc     [ -signer key-id ] [ -upload dest ]                                              -- creates a debian source package
-   nsis                                                                                        -- creates a Windows NSIS installer
-   aar        [ -local ] [ -sign key-id ] [-deploy repo] [ -upload dest ]                      -- creates an Android archive
-   xcode      [ -local ] [ -sign key-id ] [-deploy repo] [ -upload dest ]                      -- creates an iOS XCode framework
-   xgo        [ -alltools ] [ options ]                                                        -- cross builds according to options
-   purge      [ -store blobstore ] [ -days threshold ]                                         -- purges old archives from the blobstore
+  install    [ -arch architecture ] [ -cc compiler ] [ packages... ]                          -- builds packages and executables
+  test       [ -coverage ] [ packages... ]                                                    -- runs the tests
+  lint                                                                                        -- runs certain pre-selected linters
+  archive    [ -arch architecture ] [ -type zip|tar ] [ -signer key-envvar ] [ -upload dest ] -- archives build artifacts
+  importkeys                                                                                  -- imports signing keys from env
+  debsrc     [ -signer key-id ] [ -upload dest ]                                              -- creates a debian source package
+  nsis                                                                                        -- creates a Windows NSIS installer
+  aar        [ -local ] [ -sign key-id ] [-deploy repo] [ -upload dest ]                      -- creates an Android archive
+  xcode      [ -local ] [ -sign key-id ] [-deploy repo] [ -upload dest ]                      -- creates an iOS XCode framework
+  xgo        [ -alltools ] [ options ]                                                        -- cross builds according to options
+  purge      [ -store blobstore ] [ -days threshold ]                                         -- purges old archives from the blobstore
 
 For all commands, -n prevents execution of external programs (dry run mode).
 
@@ -67,7 +67,7 @@ var (
 	// Files that end up in the geth*.zip archive.
 	gethArchiveFiles = []string{
 		"COPYING",
-		executablePath("geth"),
+		executablePath("gunc"),
 	}
 
 	// Files that end up in the geth-alltools*.zip archive.
@@ -76,7 +76,7 @@ var (
 		executablePath("abigen"),
 		executablePath("bootnode"),
 		executablePath("evm"),
-		executablePath("geth"),
+		executablePath("gunc"),
 		executablePath("puppeth"),
 		executablePath("rlpdump"),
 		executablePath("wnode"),
@@ -103,8 +103,8 @@ var (
 			Description: "Developer utility version of the EVM (Ethereum Virtual Machine) that is capable of running bytecode snippets within a configurable environment and execution mode.",
 		},
 		{
-			BinaryName:  "geth",
-			Description: "Ethereum CLI client.",
+			BinaryName:  "gunc",
+			Description: "Uncommons CLI client.",
 		},
 		{
 			BinaryName:  "puppeth",
@@ -124,19 +124,19 @@ var (
 	debSwarmExecutables = []debExecutable{
 		{
 			BinaryName:  "swarm",
-			PackageName: "ethereum-swarm",
-			Description: "Ethereum Swarm daemon and tools",
+			PackageName: "uncommons-swarm",
+			Description: "uncommons Swarm daemon and tools",
 		},
 	}
 
 	debEthereum = debPackage{
-		Name:        "ethereum",
+		Name:        "uncommons",
 		Version:     params.Version,
 		Executables: debExecutables,
 	}
 
 	debSwarm = debPackage{
-		Name:        "ethereum-swarm",
+		Name:        "uncommons-swarm",
 		Version:     sv.Version,
 		Executables: debSwarmExecutables,
 	}
@@ -593,7 +593,7 @@ func (d debExecutable) Package() string {
 func newDebMetadata(distro, author string, env build.Environment, t time.Time, name string, version string, exes []debExecutable) debMetadata {
 	if author == "" {
 		// No signing key, use default author.
-		author = "Ethereum Builds <fjl@ethereum.org>"
+		author = "Uncommons Builds <0xbatutut@ninja.org>"
 	}
 	return debMetadata{
 		PackageName: name,
@@ -714,7 +714,7 @@ func doWindowsInstaller(cmdline []string) {
 			continue
 		}
 		allTools = append(allTools, filepath.Base(file))
-		if filepath.Base(file) == "geth.exe" {
+		if filepath.Base(file) == "gunc.exe" {
 			gethTool = file
 		} else {
 			devTools = append(devTools, file)
@@ -725,10 +725,10 @@ func doWindowsInstaller(cmdline []string) {
 	// first section contains the geth binary, second section holds the dev tools.
 	templateData := map[string]interface{}{
 		"License":  "COPYING",
-		"Geth":     gethTool,
+		"Gunc":     gethTool,
 		"DevTools": devTools,
 	}
-	build.Render("build/nsis.geth.nsi", filepath.Join(*workdir, "geth.nsi"), 0644, nil)
+	build.Render("build/nsis.gunc.nsi", filepath.Join(*workdir, "gunc.nsi"), 0644, nil)
 	build.Render("build/nsis.install.nsh", filepath.Join(*workdir, "install.nsh"), 0644, templateData)
 	build.Render("build/nsis.uninstall.nsh", filepath.Join(*workdir, "uninstall.nsh"), 0644, allTools)
 	build.Render("build/nsis.pathupdate.nsh", filepath.Join(*workdir, "PathUpdate.nsh"), 0644, nil)
