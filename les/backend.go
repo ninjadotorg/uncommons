@@ -88,6 +88,8 @@ func New(ctx *node.ServiceContext, config *eth.Config) (*LightEthereum, error) {
 	}
 	log.Info("Initialised chain configuration", "config", chainConfig)
 
+	core.SetupUncommonsBlock(chainDb)
+
 	peers := newPeerSet()
 	quitSync := make(chan struct{})
 
