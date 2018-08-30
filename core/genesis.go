@@ -259,29 +259,29 @@ func (g *Genesis) ToBlock(db ethdb.Database) (*types.Block, types.Receipts) {
 	statedb.Commit(false)
 	statedb.Database().TrieDB().Commit(root, true)
 
-	controlContractTx := types.NewContractCreation(1, big.NewInt(0), 4700000, big.NewInt(0), GenesisContractControl)
-	whitedrawContractTx := types.NewContractCreation(1, big.NewInt(0), 4700000, big.NewInt(0), GenesisContractWithdraw)
-
-	txs := types.Transactions{
-		controlContractTx,
-		whitedrawContractTx,
-	}
-
 	sender := []byte("6435192907ef452744560bE39fcE68835Ee6d7E0")
 	var from [20]byte
 	copy(sender[:], from[:20])
+
+	controlContractTx := types.NewContractCreation(1, big.NewInt(0), 4700000, big.NewInt(0), GenesisContractControl)
+	// whitedrawContractTx := types.NewContractCreation(1, big.NewInt(0), 4700000, big.NewInt(0), GenesisContractWithdraw)
+
+	txs := types.Transactions{
+		controlContractTx,
+		// whitedrawContractTx,
+	}
 
 	controlContractTxReceipt := types.NewReceipt(root.Bytes(), false, 0)
 	controlContractTxReceipt.TxHash = controlContractTx.Hash()
 	controlContractTxReceipt.ContractAddress = crypto.CreateAddress(common.Address(from), controlContractTx.Nonce())
 
-	whitedrawContractTxReceipt := types.NewReceipt(root.Bytes(), false, 0)
-	whitedrawContractTxReceipt.TxHash = whitedrawContractTx.Hash()
-	whitedrawContractTxReceipt.ContractAddress = crypto.CreateAddress(common.Address(from), whitedrawContractTx.Nonce())
+	// whitedrawContractTxReceipt := types.NewReceipt(root.Bytes(), false, 0)
+	// whitedrawContractTxReceipt.TxHash = whitedrawContractTx.Hash()
+	// whitedrawContractTxReceipt.ContractAddress = crypto.CreateAddress(common.Address(from), whitedrawContractTx.Nonce()+1)
 
 	txReceipts := types.Receipts{
 		controlContractTxReceipt,
-		whitedrawContractTxReceipt,
+		// whitedrawContractTxReceipt,
 	}
 
 	return types.NewBlock(head, txs, nil, txReceipts), txReceipts
@@ -385,7 +385,7 @@ func DeveloperGenesisBlock(period uint64, faucet common.Address) *Genesis {
 			common.BytesToAddress([]byte{6}): {Balance: big.NewInt(1)}, // ECAdd
 			common.BytesToAddress([]byte{7}): {Balance: big.NewInt(1)}, // ECScalarMul
 			common.BytesToAddress([]byte{8}): {Balance: big.NewInt(1)}, // ECPairing
-			faucet: {Balance: new(big.Int).Sub(new(big.Int).Lsh(big.NewInt(1), 256), big.NewInt(9))},
+			faucet:                           {Balance: new(big.Int).Sub(new(big.Int).Lsh(big.NewInt(1), 256), big.NewInt(9))},
 		},
 	}
 }
