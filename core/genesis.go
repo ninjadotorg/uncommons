@@ -208,46 +208,6 @@ func SetupGenesisBlock(db ethdb.Database, genesis *Genesis) (*params.ChainConfig
 	return newcfg, stored, nil
 }
 
-// SetupUncommonsBlock writes or updates the "uncommons" block in db.
-// This block contain the uncommons - root contract
-func SetupUncommonsBlock(db ethdb.Database) { //(*params.ChainConfig, common.Hash, error)
-	// log.Info("Writing default main-net uncommons block")
-	// genesisHash := rawdb.ReadCanonicalHash(db, 0)
-	// // genesisBlock := rawdb.ReadBlock(db, genesisHash, 0)
-	// // genesisBlockRoot := genesisBlock.Root()
-	// difficulty := big.NewInt(17179869184)
-
-	// controlContract := new(types.Transaction)
-	// controlContract.UnmarshalJSON(ControlContract)
-
-	// statedb, _ := state.New(common.Hash{}, state.NewDatabase(db))
-
-	// header, _ := &types.Header{
-	// 	Number:     new(big.Int).SetUint64(1),
-	// 	Nonce:      types.EncodeNonce(67),
-	// 	ParentHash: genesisHash,
-	// 	Extra:      hexutil.MustDecode("0x0000000000000000000000000000000000000000000000000000000000000000"),
-	// 	GasLimit:   7316882,
-	// 	Difficulty: difficulty,
-	// }, types.Transactions{
-	// 	controlContract,
-	// }
-
-	// header.Root = statedb.IntermediateRoot(true)
-
-	// block := types.NewBlock(header, nil, nil, nil)
-
-	// statedb.Commit(false)
-	// statedb.Database().TrieDB().Commit(block.Root(), false)
-
-	// rawdb.WriteTd(db, block.Hash(), block.NumberU64(), difficulty)
-	// rawdb.WriteBlock(db, block)
-	// rawdb.WriteReceipts(db, block.Hash(), block.NumberU64(), nil)
-	// rawdb.WriteCanonicalHash(db, block.Hash(), block.NumberU64())
-	// rawdb.WriteHeadBlockHash(db, block.Hash())
-	// rawdb.WriteHeadHeaderHash(db, block.Hash())
-}
-
 func (g *Genesis) configOrDefault(ghash common.Hash) *params.ChainConfig {
 	switch {
 	case g != nil:

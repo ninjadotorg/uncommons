@@ -124,8 +124,6 @@ func New(ctx *node.ServiceContext, config *Config) (*Ethereum, error) {
 	}
 	log.Info("Initialised chain configuration", "config", chainConfig)
 
-	core.SetupUncommonsBlock(chainDb)
-
 	eth := &Ethereum{
 		config:         config,
 		chainDb:        chainDb,
