@@ -172,7 +172,7 @@ func SetupGenesisBlock(db ethdb.Database, genesis *Genesis) (*params.ChainConfig
 
 	// Check whether the genesis block is already written.
 	if genesis != nil {
-		genesisBlock, _ := genesis.ToBlock(nil)
+		genesisBlock := genesis.ToBlock(nil)
 		hash := genesisBlock.Hash()
 		if hash != stored {
 			return genesis.Config, hash, &GenesisMismatchError{stored, hash}
@@ -223,10 +223,24 @@ func (g *Genesis) configOrDefault(ghash common.Hash) *params.ChainConfig {
 
 // ToBlock creates the genesis block and writes state of a genesis specification
 // to the given database (or discards it if nil).
-func (g *Genesis) ToBlock(db ethdb.Database) (*types.Block, types.Receipts) {
+func (g *Genesis) ToBlock(db ethdb.Database) *types.Block {
 	if db == nil {
 		db = ethdb.NewMemDatabase()
 	}
+
+	sender, _ := hexutil.Decode("0x6435192907ef452744560be39fce68835ee6d7e0")
+	var from [20]byte
+	copy(from[:], sender[:20])
+
+	/* save tx of contracts */
+
+	controlContractTx := new(types.Transaction)
+	controlContractTx.UnmarshalJSON([]byte(GenesisContractControlJSON))
+
+	txs := types.Transactions{
+		controlContractTx,
+	}
+
 	statedb, _ := state.New(common.Hash{}, state.NewDatabase(db))
 	for addr, account := range g.Alloc {
 		statedb.AddBalance(addr, account.Balance)
@@ -236,6 +250,25 @@ func (g *Genesis) ToBlock(db ethdb.Database) (*types.Block, types.Receipts) {
 			statedb.SetState(addr, key, value)
 		}
 	}
+
+	/* gunc-note: save state of contracts */
+	/* gunc-note: contract-whitelist */
+	controlContractAddress := crypto.CreateAddress(from, controlContractTx.Nonce())
+
+	statedb.AddBalance(controlContractAddress, big.NewInt(0))
+	statedb.SetCode(controlContractAddress, GenesisContractControlCode)
+	statedb.SetNonce(controlContractAddress, controlContractTx.Nonce()+1)
+
+	statedb.SetState(controlContractAddress,
+		common.BytesToHash([]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
+		common.BytesToHash([]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}),
+	)
+
+	statedb.SetState(controlContractAddress,
+		common.BytesToHash([]byte{41, 13, 236, 217, 84, 139, 98, 168, 214, 3, 69, 169, 136, 56, 111, 200, 75, 166, 188, 149, 72, 64, 8, 246, 54, 47, 147, 22, 14, 243, 229, 99}),
+		common.BytesToHash([]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 53, 25, 41, 7, 239, 69, 39, 68, 86, 11, 227, 159, 206, 104, 131, 94, 230, 215, 224}),
+	)
+
 	root := statedb.IntermediateRoot(false)
 	head := &types.Header{
 		Number:     new(big.Int).SetUint64(g.Number),
@@ -259,41 +292,35 @@ func (g *Genesis) ToBlock(db ethdb.Database) (*types.Block, types.Receipts) {
 	statedb.Commit(false)
 	statedb.Database().TrieDB().Commit(root, true)
 
-	sender := []byte("6435192907ef452744560bE39fcE68835Ee6d7E0")
-	var from [20]byte
-	copy(sender[:], from[:20])
-
-	controlContractTx := types.NewContractCreation(1, big.NewInt(0), 4700000, big.NewInt(0), GenesisContractControl)
-	// whitedrawContractTx := types.NewContractCreation(1, big.NewInt(0), 4700000, big.NewInt(0), GenesisContractWithdraw)
-
-	txs := types.Transactions{
-		controlContractTx,
-		// whitedrawContractTx,
-	}
-
-	controlContractTxReceipt := types.NewReceipt(root.Bytes(), false, 0)
-	controlContractTxReceipt.TxHash = controlContractTx.Hash()
-	controlContractTxReceipt.ContractAddress = crypto.CreateAddress(common.Address(from), controlContractTx.Nonce())
-
-	// whitedrawContractTxReceipt := types.NewReceipt(root.Bytes(), false, 0)
-	// whitedrawContractTxReceipt.TxHash = whitedrawContractTx.Hash()
-	// whitedrawContractTxReceipt.ContractAddress = crypto.CreateAddress(common.Address(from), whitedrawContractTx.Nonce()+1)
-
-	txReceipts := types.Receipts{
-		controlContractTxReceipt,
-		// whitedrawContractTxReceipt,
-	}
-
-	return types.NewBlock(head, txs, nil, txReceipts), txReceipts
+	return types.NewBlock(head, txs, nil, nil)
 }
 
 // Commit writes the block and state of a genesis specification to the database.
 // The block is committed as the canonical head block.
 func (g *Genesis) Commit(db ethdb.Database) (*types.Block, error) {
-	block, txReceipts := g.ToBlock(db)
+	block := g.ToBlock(db)
 	if block.Number().Sign() != 0 {
 		return nil, fmt.Errorf("can't commit genesis block with number > 0")
 	}
+
+	/* gunc-note: save tx receipts of contracts */
+	sender, _ := hexutil.Decode("0x6435192907ef452744560be39fce68835ee6d7e0")
+	var from [20]byte
+	copy(from[:], sender[:20])
+
+	transactions, logIndex := block.Transactions(), uint(0)
+	var txReceipts types.Receipts
+
+	for j := 0; j < len(transactions); j++ {
+		receipt := types.NewReceipt(block.Root().Bytes(), false, 0)
+		receipt.TxHash = transactions[j].Hash()
+		receipt.GasUsed = transactions[j].Gas()
+		receipt.ContractAddress = crypto.CreateAddress(from, transactions[j].Nonce())
+		receipt.Status = 1
+		txReceipts = append(txReceipts, receipt)
+		logIndex++
+	}
+
 	rawdb.WriteTd(db, block.Hash(), block.NumberU64(), g.Difficulty)
 	rawdb.WriteBlock(db, block)
 	rawdb.WriteReceipts(db, block.Hash(), block.NumberU64(), txReceipts)
@@ -328,7 +355,7 @@ func GenesisBlockForTesting(db ethdb.Database, addr common.Address, balance *big
 
 // DefaultGenesisBlock returns the Ethereum main net genesis block.
 func DefaultGenesisBlock() *Genesis {
-	difficulty := big.NewInt(17179869184 / int64(goMath.Pow(2, 30)))
+	difficulty := big.NewInt(17179869184 / int64(goMath.Pow(2, 10)))
 	return &Genesis{
 		Config:     params.MainnetChainConfig,
 		Nonce:      66,

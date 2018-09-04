@@ -27,13 +27,13 @@ import (
 
 	cli "gopkg.in/urfave/cli.v1"
 
+	"github.com/naoina/toml"
 	"github.com/ninjadotorg/uncommons/cmd/utils"
 	"github.com/ninjadotorg/uncommons/dashboard"
 	"github.com/ninjadotorg/uncommons/eth"
 	"github.com/ninjadotorg/uncommons/node"
 	"github.com/ninjadotorg/uncommons/params"
 	whisper "github.com/ninjadotorg/uncommons/whisper/whisperv6"
-	"github.com/naoina/toml"
 )
 
 var (

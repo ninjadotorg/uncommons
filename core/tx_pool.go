@@ -608,6 +608,8 @@ func (pool *TxPool) validateTx(tx *types.Transaction, local bool) error {
 	return nil
 }
 
+// gunc-note: add tx to tx pool
+
 // add validates a transaction and inserts it into the non-executable queue for
 // later pending promotion and execution. If the transaction is a replacement for
 // an already pending or queued one, it overwrites the previous and returns this
@@ -717,6 +719,8 @@ func (pool *TxPool) enqueueTx(hash common.Hash, tx *types.Transaction) (bool, er
 	return old != nil, nil
 }
 
+// gunc-note: add tx to journal
+
 // journalTx adds the specified transaction to the local disk journal if it is
 // deemed to have been sent from a local account.
 func (pool *TxPool) journalTx(from common.Address, tx *types.Transaction) {
@@ -801,6 +805,7 @@ func (pool *TxPool) addTx(tx *types.Transaction, local bool) error {
 	pool.mu.Lock()
 	defer pool.mu.Unlock()
 
+	/* gunc-note: add tx to pool */
 	// Try to inject the transaction and update any state
 	replace, err := pool.add(tx, local)
 	if err != nil {

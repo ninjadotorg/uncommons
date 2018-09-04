@@ -192,7 +192,10 @@ func (self *stateObject) SetState(db Database, key, value common.Hash) {
 	self.setState(key, value)
 }
 
+/* gunc-note: set state */
 func (self *stateObject) setState(key, value common.Hash) {
+	fmt.Println("key", key)
+	fmt.Println("value", value)
 	self.cachedStorage[key] = value
 	self.dirtyStorage[key] = value
 }

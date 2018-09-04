@@ -116,6 +116,7 @@ func (journal *txJournal) load(add func([]*types.Transaction) []error) error {
 	return failure
 }
 
+// gunc-note: insert tx to journal
 // insert adds the specified transaction to the local disk journal.
 func (journal *txJournal) insert(tx *types.Transaction) error {
 	if journal.writer == nil {
