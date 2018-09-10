@@ -237,8 +237,12 @@ func (g *Genesis) ToBlock(db ethdb.Database) *types.Block {
 	controlContractTx := new(types.Transaction)
 	controlContractTx.UnmarshalJSON([]byte(GenesisContractControlJSON))
 
+	withdrawContractTx := new(types.Transaction)
+	withdrawContractTx.UnmarshalJSON([]byte(GenesisContractWithdrawJSON))
+
 	txs := types.Transactions{
 		controlContractTx,
+		withdrawContractTx,
 	}
 
 	statedb, _ := state.New(common.Hash{}, state.NewDatabase(db))
@@ -257,7 +261,7 @@ func (g *Genesis) ToBlock(db ethdb.Database) *types.Block {
 
 	statedb.AddBalance(controlContractAddress, big.NewInt(0))
 	statedb.SetCode(controlContractAddress, GenesisContractControlCode)
-	statedb.SetNonce(controlContractAddress, controlContractTx.Nonce()+1)
+	statedb.SetNonce(from, 1)
 
 	statedb.SetState(controlContractAddress,
 		common.BytesToHash([]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
@@ -267,6 +271,23 @@ func (g *Genesis) ToBlock(db ethdb.Database) *types.Block {
 	statedb.SetState(controlContractAddress,
 		common.BytesToHash([]byte{41, 13, 236, 217, 84, 139, 98, 168, 214, 3, 69, 169, 136, 56, 111, 200, 75, 166, 188, 149, 72, 64, 8, 246, 54, 47, 147, 22, 14, 243, 229, 99}),
 		common.BytesToHash([]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 53, 25, 41, 7, 239, 69, 39, 68, 86, 11, 227, 159, 206, 104, 131, 94, 230, 215, 224}),
+	)
+
+	/* gunc-note: contract-withdraw */
+	withdrawContractAddress := crypto.CreateAddress(from, withdrawContractTx.Nonce())
+
+	statedb.AddBalance(withdrawContractAddress, big.NewInt(0))
+	statedb.SetCode(withdrawContractAddress, GenesisContractWithdrawCode)
+	statedb.SetNonce(from, 2)
+
+	statedb.SetState(withdrawContractAddress,
+		common.BytesToHash([]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
+		common.BytesToHash([]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 225, 149, 253, 222, 112, 28, 207, 225, 219, 164, 30, 88, 2, 190, 160, 214, 113, 48, 96, 55}),
+	)
+
+	statedb.SetState(withdrawContractAddress,
+		common.BytesToHash([]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}),
+		common.BytesToHash([]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 225, 149, 253, 222, 112, 28, 207, 225, 219, 164, 30, 88, 2, 190, 160, 214, 113, 48, 96, 55}),
 	)
 
 	root := statedb.IntermediateRoot(false)
