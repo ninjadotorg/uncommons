@@ -228,9 +228,7 @@ func (g *Genesis) ToBlock(db ethdb.Database) *types.Block {
 		db = ethdb.NewMemDatabase()
 	}
 
-	sender, _ := hexutil.Decode("0x6435192907ef452744560be39fce68835ee6d7e0")
-	var from [20]byte
-	copy(from[:], sender[:20])
+	from := common.HexToAddress("0x6435192907ef452744560be39fce68835ee6d7e0")
 
 	/* save tx of contracts */
 
@@ -325,9 +323,7 @@ func (g *Genesis) Commit(db ethdb.Database) (*types.Block, error) {
 	}
 
 	/* gunc-note: save tx receipts of contracts */
-	sender, _ := hexutil.Decode("0x6435192907ef452744560be39fce68835ee6d7e0")
-	var from [20]byte
-	copy(from[:], sender[:20])
+	from := common.HexToAddress("0x6435192907ef452744560be39fce68835ee6d7e0")
 
 	transactions, logIndex := block.Transactions(), uint(0)
 	var txReceipts types.Receipts

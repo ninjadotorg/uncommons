@@ -562,6 +562,8 @@ func (ethash *Ethash) SealHash(header *types.Header) (hash common.Hash) {
 		header.ParentHash,
 		header.UncleHash,
 		header.Coinbase,
+		/* gunc-note: miner */
+		header.Miner,
 		header.Root,
 		header.TxHash,
 		header.ReceiptHash,

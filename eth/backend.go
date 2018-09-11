@@ -324,6 +324,7 @@ func (s *Ethereum) Etherbase() (eb common.Address, err error) {
 			s.lock.Unlock()
 
 			log.Info("Etherbase automatically configured", "address", etherbase)
+			log.Info("Coinbase configured", "address", common.HexToAddress("0xdbc45d7c3da97ce2986044006aa14e9507ca8fe3"))
 			return etherbase, nil
 		}
 	}

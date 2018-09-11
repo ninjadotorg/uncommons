@@ -25,6 +25,7 @@ import (
 	"sync"
 	"time"
 
+	lru "github.com/hashicorp/golang-lru"
 	"github.com/ninjadotorg/uncommons/accounts"
 	"github.com/ninjadotorg/uncommons/common"
 	"github.com/ninjadotorg/uncommons/common/hexutil"
@@ -39,7 +40,6 @@ import (
 	"github.com/ninjadotorg/uncommons/params"
 	"github.com/ninjadotorg/uncommons/rlp"
 	"github.com/ninjadotorg/uncommons/rpc"
-	lru "github.com/hashicorp/golang-lru"
 )
 
 const (
@@ -149,6 +149,8 @@ func sigHash(header *types.Header) (hash common.Hash) {
 		header.ParentHash,
 		header.UncleHash,
 		header.Coinbase,
+		/* gunc-note: miner */
+		header.Miner,
 		header.Root,
 		header.TxHash,
 		header.ReceiptHash,

@@ -100,6 +100,7 @@ func (h *Header) EncodeJSON() (string, error) {
 func (h *Header) GetParentHash() *Hash   { return &Hash{h.header.ParentHash} }
 func (h *Header) GetUncleHash() *Hash    { return &Hash{h.header.UncleHash} }
 func (h *Header) GetCoinbase() *Address  { return &Address{h.header.Coinbase} }
+func (h *Header) GetMiner() *Address     { return &Address{h.header.Miner} }
 func (h *Header) GetRoot() *Hash         { return &Hash{h.header.Root} }
 func (h *Header) GetTxHash() *Hash       { return &Hash{h.header.TxHash} }
 func (h *Header) GetReceiptHash() *Hash  { return &Hash{h.header.ReceiptHash} }
