@@ -305,6 +305,7 @@ func (srv *Server) PeerCount() int {
 // server is shut down. If the connection fails for any reason, the server will
 // attempt to reconnect the peer.
 func (srv *Server) AddPeer(node *discover.Node) {
+	// gunc-note: start add peer
 	select {
 	case srv.addstatic <- node:
 	case <-srv.quit:
@@ -632,6 +633,7 @@ running:
 			// This channel is used by AddPeer to add to the
 			// ephemeral static peer list. Add it to the dialer,
 			// it will keep the node connected.
+			// gunc-note: add peer by manual
 			srv.log.Trace("Adding static node", "node", n)
 			dialstate.addStatic(n)
 		case n := <-srv.removestatic:
@@ -691,6 +693,7 @@ running:
 			// At this point the connection is past the protocol handshake.
 			// Its capabilities are known and the remote identity is verified.
 			err := srv.protoHandshakeChecks(peers, inboundCount, c)
+			// gunc-note: addpeer
 			if err == nil {
 				// The handshakes are done and it passed all checks.
 				p := newPeer(c, srv.Protocols)

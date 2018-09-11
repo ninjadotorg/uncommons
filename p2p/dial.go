@@ -148,6 +148,7 @@ func newDialState(static []*discover.Node, bootnodes []*discover.Node, ntab disc
 func (s *dialstate) addStatic(n *discover.Node) {
 	// This overwrites the task instead of updating an existing
 	// entry, giving users the opportunity to force a resolve operation.
+	// gunc-note: add static peer
 	s.static[n.ID] = &dialTask{flags: staticDialedConn, dest: n}
 }
 
