@@ -27,6 +27,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/hashicorp/golang-lru"
 	"github.com/ninjadotorg/uncommons/common"
 	"github.com/ninjadotorg/uncommons/common/mclock"
 	"github.com/ninjadotorg/uncommons/consensus"
@@ -42,7 +43,6 @@ import (
 	"github.com/ninjadotorg/uncommons/params"
 	"github.com/ninjadotorg/uncommons/rlp"
 	"github.com/ninjadotorg/uncommons/trie"
-	"github.com/hashicorp/golang-lru"
 	"gopkg.in/karalabe/cookiejar.v2/collections/prque"
 )
 
